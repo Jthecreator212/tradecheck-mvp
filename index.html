@@ -594,6 +594,10 @@
     </div>
   </footer>
 <script>
+// Prevent browser scroll restoration so loader always starts at top
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
 gsap.registerPlugin(ScrollTrigger);
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
