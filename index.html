@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,8 +19,8 @@
             body: ['Inter', 'sans-serif'],
           },
           colors: {
-            emerald: { DEFAULT: '#10B981', dark: '#059669' },
-            void: '#050505',
+            sky: { DEFAULT: '#4fc3f7', dark: '#0288d1' },
+            base: '#dde3ea',
           }
         }
       }
@@ -37,11 +37,11 @@
   <style>
     /* Base */
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html { background: #050505; color: #FAFAFA; }
-    body { font-family: 'Inter', sans-serif; background: #050505; overflow-x: hidden; }
+    html { background: #dde3ea; color: #1a1a2e; }
+    body { font-family: 'Inter', sans-serif; background: #dde3ea; overflow-x: hidden; }
 
     /* Film grain overlay */
-    .grain { position:fixed; top:-50%; left:-50%; width:200%; height:200%; z-index:9999; pointer-events:none; opacity:0.035; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); animation:grainAnim 0.5s steps(6) infinite; }
+    .grain { position:fixed; top:-50%; left:-50%; width:200%; height:200%; z-index:9999; pointer-events:none; opacity:0.02; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); animation:grainAnim 0.5s steps(6) infinite; }
     @keyframes grainAnim {
       0%,100%{transform:translate(0,0)}
       10%{transform:translate(-5%,-10%)}
@@ -52,40 +52,40 @@
     }
 
     /* Scroll progress bar */
-    .scroll-progress { position:fixed; top:0; left:0; height:1px; background:#10B981; z-index:10000; width:0%; transition: none; }
+    .scroll-progress { position:fixed; top:0; left:0; height:1px; background:#4fc3f7; z-index:10000; width:0%; transition: none; }
 
     /* Section dividers */
-    .section-divider { width:100%; height:1px; background:#1A1A1A; transform:scaleX(0); transform-origin:center; }
+    .section-divider { width:100%; height:1px; background:#c8d1dc; transform:scaleX(0); transform-origin:center; }
 
     /* Loader */
-    .loader { position:fixed; inset:0; background:#050505; z-index:10001; display:flex; align-items:center; justify-content:center; flex-direction:column; }
-    .loader-line { width:0; height:1px; background:#FAFAFA; }
-    .loader-text { font-family:'Space Grotesk',sans-serif; font-size:1.25rem; letter-spacing:0.3em; color:#FAFAFA; opacity:0; text-transform:uppercase; }
+    .loader { position:fixed; inset:0; background:#dde3ea; z-index:10001; display:flex; align-items:center; justify-content:center; flex-direction:column; }
+    .loader-line { width:0; height:1px; background:#1a1a2e; }
+    .loader-text { font-family:'Space Grotesk',sans-serif; font-size:1.25rem; letter-spacing:0.3em; color:#1a1a2e; opacity:0; text-transform:uppercase; }
 
     /* Card spotlight hover effect */
     .spotlight-card { position:relative; overflow:hidden; }
-    .spotlight-card::before { content:''; position:absolute; top:0; left:0; right:0; bottom:0; opacity:0; transition:opacity 0.3s; background:radial-gradient(600px circle at var(--mouse-x,50%) var(--mouse-y,50%), rgba(16,185,129,0.06), transparent 40%); z-index:1; pointer-events:none; }
+    .spotlight-card::before { content:''; position:absolute; top:0; left:0; right:0; bottom:0; opacity:0; transition:opacity 0.3s; background:radial-gradient(600px circle at var(--mouse-x,50%) var(--mouse-y,50%), rgba(79,195,247,0.08), transparent 40%); z-index:1; pointer-events:none; }
     @media(hover:hover){ .spotlight-card:hover::before { opacity:1; } }
 
     /* Shimmer border on feature cards */
     @property --angle { syntax:'<angle>'; initial-value:0deg; inherits:false; }
     .shimmer-border { position:relative; }
-    .shimmer-border::after { content:''; position:absolute; inset:-1px; border-radius:inherit; background:conic-gradient(from var(--angle), transparent 60%, #10B981 80%, transparent 100%); z-index:-1; opacity:0; transition:opacity 0.4s; }
+    .shimmer-border::after { content:''; position:absolute; inset:-1px; border-radius:inherit; background:conic-gradient(from var(--angle), transparent 60%, #4fc3f7 80%, transparent 100%); z-index:-1; opacity:0; transition:opacity 0.4s; }
     @media(hover:hover){ .shimmer-border:hover::after { opacity:1; animation:shimmerRotate 3s linear infinite; } }
     @keyframes shimmerRotate { to { --angle:360deg; } }
 
     /* Pricing rotating border (always animated on premium) */
-    .rotating-border::after { content:''; position:absolute; inset:-2px; border-radius:inherit; background:conic-gradient(from var(--angle), #10B981, transparent 30%, #10B981 60%, transparent 90%); z-index:-1; animation:shimmerRotate 4s linear infinite; }
+    .rotating-border::after { content:''; position:absolute; inset:-2px; border-radius:inherit; background:conic-gradient(from var(--angle), #4fc3f7, transparent 30%, #4fc3f7 60%, transparent 90%); z-index:-1; animation:shimmerRotate 4s linear infinite; }
 
     /* Glassmorphism */
-    .glass { background:rgba(10,10,10,0.6); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.05); }
+    .glass { background:rgba(255,255,255,0.6); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(0,0,0,0.06); }
 
     /* CTA pulse */
-    .pulse-bg { position:absolute; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle, rgba(16,185,129,0.15), transparent 70%); animation:ctaPulse 3s ease-in-out infinite; }
+    .pulse-bg { position:absolute; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle, rgba(79,195,247,0.12), transparent 70%); animation:ctaPulse 3s ease-in-out infinite; }
     @keyframes ctaPulse { 0%,100%{transform:scale(1);opacity:0.5} 50%{transform:scale(1.15);opacity:1} }
 
     /* Utilities */
-    .text-gradient { background:linear-gradient(135deg,#10B981,#34D399); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .text-gradient { background:linear-gradient(135deg,#4fc3f7,#81d4fa); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
     @media(prefers-reduced-motion:reduce){ *, *::before, *::after { animation-duration:0.01ms!important; animation-iteration-count:1!important; transition-duration:0.01ms!important; } .grain{display:none;} }
   </style>
 </head>
@@ -102,43 +102,43 @@
   <main id="mainContent" style="opacity:0">
 <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
   <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-    <a href="#" class="font-display font-bold text-xl tracking-tight">Trade<span class="text-[#10B981]">Check</span></a>
+    <a href="#" class="font-display font-bold text-xl tracking-tight">Trade<span class="text-[#4fc3f7]">Check</span></a>
     <div class="hidden md:flex items-center gap-8">
-      <a href="#how-it-works" class="text-sm text-[#999] hover:text-white transition-colors">For Homeowners</a>
-      <a href="#how-it-works" class="text-sm text-[#999] hover:text-white transition-colors">For Tradespeople</a>
-      <a href="#pricing" class="text-sm text-[#999] hover:text-white transition-colors">Pricing</a>
-      <a href="#cta" class="text-sm border border-[#10B981] text-[#10B981] px-5 py-2 rounded-full hover:bg-[#10B981] hover:text-black transition-all duration-300">Join Waitlist</a>
+      <a href="#how-it-works" class="text-sm text-[#4a5568] hover:text-[#1a1a2e] transition-colors">For Homeowners</a>
+      <a href="#how-it-works" class="text-sm text-[#4a5568] hover:text-[#1a1a2e] transition-colors">For Tradespeople</a>
+      <a href="#pricing" class="text-sm text-[#4a5568] hover:text-[#1a1a2e] transition-colors">Pricing</a>
+      <a href="#cta" class="text-sm border border-[#4fc3f7] text-[#4fc3f7] px-5 py-2 rounded-full hover:bg-[#4fc3f7] hover:text-[#1a1a2e] transition-all duration-300">Join Waitlist</a>
     </div>
-    <button id="menuBtn" class="md:hidden text-white" aria-label="Menu">
+    <button id="menuBtn" class="md:hidden text-[#1a1a2e]" aria-label="Menu">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
   </div>
 </nav>
 
 <!-- Mobile Menu Overlay -->
-<div id="mobileMenu" class="fixed inset-0 bg-[#050505] z-40 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-300">
-  <button id="menuClose" class="absolute top-5 right-6 text-white" aria-label="Close">
+<div id="mobileMenu" class="fixed inset-0 bg-[#dde3ea] z-40 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-300">
+  <button id="menuClose" class="absolute top-5 right-6 text-[#1a1a2e]" aria-label="Close">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
   </button>
-  <a href="#how-it-works" class="text-2xl font-display text-white mobile-menu-link">For Homeowners</a>
-  <a href="#how-it-works" class="text-2xl font-display text-white mobile-menu-link">For Tradespeople</a>
-  <a href="#pricing" class="text-2xl font-display text-white mobile-menu-link">Pricing</a>
-  <a href="#cta" class="text-lg border border-[#10B981] text-[#10B981] px-8 py-3 rounded-full mobile-menu-link">Join Waitlist</a>
+  <a href="#how-it-works" class="text-2xl font-display text-[#1a1a2e] mobile-menu-link">For Homeowners</a>
+  <a href="#how-it-works" class="text-2xl font-display text-[#1a1a2e] mobile-menu-link">For Tradespeople</a>
+  <a href="#pricing" class="text-2xl font-display text-[#1a1a2e] mobile-menu-link">Pricing</a>
+  <a href="#cta" class="text-lg border border-[#4fc3f7] text-[#4fc3f7] px-8 py-3 rounded-full mobile-menu-link">Join Waitlist</a>
 </div>
 
 <section id="hero" class="min-h-screen flex flex-col items-center justify-center text-center px-6 relative">
   <h1 id="heroTitle" class="font-display font-bold tracking-[-0.04em] leading-[0.9]" style="font-size:clamp(3rem,12vw,10rem)">
     TRADECHECK
   </h1>
-  <p id="heroSubtitle" class="mt-6 text-sm md:text-base uppercase tracking-[0.25em] text-[#999] opacity-0">
+  <p id="heroSubtitle" class="mt-6 text-sm md:text-base uppercase tracking-[0.25em] text-[#4a5568] opacity-0">
     THE VERIFIED TRADES MARKETPLACE
   </p>
   <div id="heroCtas" class="mt-10 flex flex-col sm:flex-row gap-4 opacity-0">
-    <a href="#cta" class="bg-[#10B981] text-black font-semibold px-8 py-4 rounded-full text-sm hover:bg-[#34D399] transition-colors">Join the Waitlist</a>
-    <a href="#how-it-works" class="border border-[#333] text-white font-medium px-8 py-4 rounded-full text-sm hover:border-[#666] transition-colors">See How It Works</a>
+    <a href="#cta" class="bg-[#4fc3f7] text-[#1a1a2e] font-semibold px-8 py-4 rounded-full text-sm hover:bg-[#81d4fa] transition-colors">Join the Waitlist</a>
+    <a href="#how-it-works" class="border border-[#b0bec5] text-[#1a1a2e] font-medium px-8 py-4 rounded-full text-sm hover:border-[#4a5568] transition-colors">See How It Works</a>
   </div>
   <div id="scrollCue" class="absolute bottom-10 opacity-0">
-    <svg class="animate-bounce w-6 h-6 text-[#666]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"/></svg>
+    <svg class="animate-bounce w-6 h-6 text-[#4a5568]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"/></svg>
   </div>
 </section>
 
@@ -147,20 +147,20 @@
 <section id="stats" class="py-24 md:py-32 px-6">
   <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
     <div class="stat-item">
-      <div class="font-display font-bold text-4xl md:text-5xl text-[#10B981]" data-count="12" data-suffix="">0</div>
-      <div class="mt-2 text-xs uppercase tracking-[0.2em] text-[#666]">Step Vetting Process</div>
+      <div class="font-display font-bold text-4xl md:text-5xl text-[#4fc3f7]" data-count="12" data-suffix="">0</div>
+      <div class="mt-2 text-xs uppercase tracking-[0.2em] text-[#4a5568]">Step Vetting Process</div>
     </div>
     <div class="stat-item">
-      <div class="font-display font-bold text-4xl md:text-5xl text-[#10B981]" data-count="100" data-suffix="+">0</div>
-      <div class="mt-2 text-xs uppercase tracking-[0.2em] text-[#666]">Trade Categories</div>
+      <div class="font-display font-bold text-4xl md:text-5xl text-[#4fc3f7]" data-count="100" data-suffix="+">0</div>
+      <div class="mt-2 text-xs uppercase tracking-[0.2em] text-[#4a5568]">Trade Categories</div>
     </div>
     <div class="stat-item">
-      <div class="font-display font-bold text-4xl md:text-5xl text-[#10B981]" data-count="1000" data-prefix="£" data-suffix="">0</div>
-      <div class="mt-2 text-xs uppercase tracking-[0.2em] text-[#666]">Homeowner Guarantee</div>
+      <div class="font-display font-bold text-4xl md:text-5xl text-[#4fc3f7]" data-count="1000" data-prefix="£" data-suffix="">0</div>
+      <div class="mt-2 text-xs uppercase tracking-[0.2em] text-[#4a5568]">Homeowner Guarantee</div>
     </div>
     <div class="stat-item">
-      <div class="font-display font-bold text-4xl md:text-5xl text-[#10B981]" data-count="99.9" data-suffix="%" data-decimal="true">0</div>
-      <div class="mt-2 text-xs uppercase tracking-[0.2em] text-[#666]">Platform Uptime</div>
+      <div class="font-display font-bold text-4xl md:text-5xl text-[#4fc3f7]" data-count="99.9" data-suffix="%" data-decimal="true">0</div>
+      <div class="mt-2 text-xs uppercase tracking-[0.2em] text-[#4a5568]">Platform Uptime</div>
     </div>
   </div>
 </section>
@@ -171,55 +171,55 @@
 <section id="how-it-works" class="py-24 md:py-32 px-6">
   <div class="max-w-6xl mx-auto">
     <div class="text-center">
-      <span class="text-xs uppercase tracking-[0.3em] text-[#10B981] font-semibold">How It Works</span>
+      <span class="text-xs uppercase tracking-[0.3em] text-[#4fc3f7] font-semibold">How It Works</span>
       <h2 class="font-display font-bold text-3xl md:text-5xl mt-4 tracking-tight">A simpler way to connect</h2>
     </div>
 
     <div class="grid md:grid-cols-2 gap-8 md:gap-x-16 md:gap-y-10 mt-16 relative">
       <!-- Center line (desktop only) -->
-      <div id="centerLine" class="hidden md:block absolute left-1/2 -translate-x-1/2 w-[2px] bg-[#10B981] h-full top-0" style="transform:scaleY(0);transform-origin:top"></div>
+      <div id="centerLine" class="hidden md:block absolute left-1/2 -translate-x-1/2 w-[2px] bg-[#4fc3f7] h-full top-0" style="transform:scaleY(0);transform-origin:top"></div>
 
       <!-- Homeowner Track -->
       <div class="space-y-8">
         <div class="text-center md:text-right mb-4">
-          <span class="text-xs uppercase tracking-[0.3em] text-[#999] font-semibold">For Homeowners</span>
+          <span class="text-xs uppercase tracking-[0.3em] text-[#4a5568] font-semibold">For Homeowners</span>
         </div>
-        <div class="hiw-card hiw-card-left bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl p-8 md:p-10">
-          <span class="text-[#10B981] font-display font-bold text-sm">01</span>
+        <div class="hiw-card hiw-card-left bg-[#ffffff] border border-[#c8d1dc] rounded-2xl p-8 md:p-10">
+          <span class="text-[#4fc3f7] font-display font-bold text-sm">01</span>
           <h3 class="font-display font-bold text-xl mt-3">Search</h3>
-          <p class="text-[#666] text-sm mt-2 leading-relaxed">Find vetted tradespeople in your area with our AI-powered search.</p>
+          <p class="text-[#4a5568] text-sm mt-2 leading-relaxed">Find vetted tradespeople in your area with our AI-powered search.</p>
         </div>
-        <div class="hiw-card hiw-card-left bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl p-8 md:p-10">
-          <span class="text-[#10B981] font-display font-bold text-sm">02</span>
+        <div class="hiw-card hiw-card-left bg-[#ffffff] border border-[#c8d1dc] rounded-2xl p-8 md:p-10">
+          <span class="text-[#4fc3f7] font-display font-bold text-sm">02</span>
           <h3 class="font-display font-bold text-xl mt-3">Compare</h3>
-          <p class="text-[#666] text-sm mt-2 leading-relaxed">Review verified ratings, portfolios, and transparent pricing.</p>
+          <p class="text-[#4a5568] text-sm mt-2 leading-relaxed">Review verified ratings, portfolios, and transparent pricing.</p>
         </div>
-        <div class="hiw-card hiw-card-left bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl p-8 md:p-10">
-          <span class="text-[#10B981] font-display font-bold text-sm">03</span>
+        <div class="hiw-card hiw-card-left bg-[#ffffff] border border-[#c8d1dc] rounded-2xl p-8 md:p-10">
+          <span class="text-[#4fc3f7] font-display font-bold text-sm">03</span>
           <h3 class="font-display font-bold text-xl mt-3">Book</h3>
-          <p class="text-[#666] text-sm mt-2 leading-relaxed">Schedule work, pay securely, and leave a verified review.</p>
+          <p class="text-[#4a5568] text-sm mt-2 leading-relaxed">Schedule work, pay securely, and leave a verified review.</p>
         </div>
       </div>
 
       <!-- Tradesperson Track -->
       <div class="space-y-8 md:mt-20">
         <div class="text-center md:text-left mb-4">
-          <span class="text-xs uppercase tracking-[0.3em] text-[#999] font-semibold">For Tradespeople</span>
+          <span class="text-xs uppercase tracking-[0.3em] text-[#4a5568] font-semibold">For Tradespeople</span>
         </div>
-        <div class="hiw-card hiw-card-right bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl p-8 md:p-10">
-          <span class="text-[#10B981] font-display font-bold text-sm">01</span>
+        <div class="hiw-card hiw-card-right bg-[#ffffff] border border-[#c8d1dc] rounded-2xl p-8 md:p-10">
+          <span class="text-[#4fc3f7] font-display font-bold text-sm">01</span>
           <h3 class="font-display font-bold text-xl mt-3">Apply</h3>
-          <p class="text-[#666] text-sm mt-2 leading-relaxed">Submit your credentials and begin our 12-step vetting process.</p>
+          <p class="text-[#4a5568] text-sm mt-2 leading-relaxed">Submit your credentials and begin our 12-step vetting process.</p>
         </div>
-        <div class="hiw-card hiw-card-right bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl p-8 md:p-10">
-          <span class="text-[#10B981] font-display font-bold text-sm">02</span>
+        <div class="hiw-card hiw-card-right bg-[#ffffff] border border-[#c8d1dc] rounded-2xl p-8 md:p-10">
+          <span class="text-[#4fc3f7] font-display font-bold text-sm">02</span>
           <h3 class="font-display font-bold text-xl mt-3">Get Verified</h3>
-          <p class="text-[#666] text-sm mt-2 leading-relaxed">Earn your TradeCheck badge and build your verified profile.</p>
+          <p class="text-[#4a5568] text-sm mt-2 leading-relaxed">Earn your TradeCheck badge and build your verified profile.</p>
         </div>
-        <div class="hiw-card hiw-card-right bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl p-8 md:p-10">
-          <span class="text-[#10B981] font-display font-bold text-sm">03</span>
+        <div class="hiw-card hiw-card-right bg-[#ffffff] border border-[#c8d1dc] rounded-2xl p-8 md:p-10">
+          <span class="text-[#4fc3f7] font-display font-bold text-sm">03</span>
           <h3 class="font-display font-bold text-xl mt-3">Grow</h3>
-          <p class="text-[#666] text-sm mt-2 leading-relaxed">Receive qualified leads and grow your business with trust.</p>
+          <p class="text-[#4a5568] text-sm mt-2 leading-relaxed">Receive qualified leads and grow your business with trust.</p>
         </div>
       </div>
     </div>
@@ -234,79 +234,79 @@
 <section id="features" class="py-24 md:py-32 px-6">
   <div class="max-w-6xl mx-auto">
     <div class="text-center">
-      <span class="text-xs uppercase tracking-[0.3em] text-[#10B981] font-semibold">Features</span>
+      <span class="text-xs uppercase tracking-[0.3em] text-[#4fc3f7] font-semibold">Features</span>
       <h2 class="font-display font-bold text-3xl md:text-5xl mt-4 tracking-tight">Everything you need</h2>
     </div>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
 
       <!-- Feature 1: AI Search -->
-      <div class="feature-card spotlight-card shimmer-border bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl p-8 md:p-10 relative">
+      <div class="feature-card spotlight-card shimmer-border bg-[#ffffff] border border-[#c8d1dc] rounded-2xl p-8 md:p-10 relative">
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="18" cy="18" r="10" stroke="#10B981" stroke-width="1.5"/>
-          <line x1="25.5" y1="25.5" x2="34" y2="34" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="18" cy="18" r="10" stroke="#4fc3f7" stroke-width="1.5"/>
+          <line x1="25.5" y1="25.5" x2="34" y2="34" stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
         <h3 class="font-display font-bold text-lg mt-6">AI Search</h3>
-        <p class="text-[#666] text-sm mt-3 leading-relaxed">Natural language search finds the right tradesperson for your specific job in seconds.</p>
+        <p class="text-[#4a5568] text-sm mt-3 leading-relaxed">Natural language search finds the right tradesperson for your specific job in seconds.</p>
       </div>
 
       <!-- Feature 2: Verified Reviews -->
-      <div class="feature-card spotlight-card shimmer-border bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl p-8 md:p-10 relative">
+      <div class="feature-card spotlight-card shimmer-border bg-[#ffffff] border border-[#c8d1dc] rounded-2xl p-8 md:p-10 relative">
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 6L23.5 14.5L32 15.5L26 21.5L27.5 30L20 25.5L12.5 30L14 21.5L8 15.5L16.5 14.5L20 6Z" stroke="#10B981" stroke-width="1.5" stroke-linejoin="round"/>
-          <path d="M16 20L19 23L25 17" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20 6L23.5 14.5L32 15.5L26 21.5L27.5 30L20 25.5L12.5 30L14 21.5L8 15.5L16.5 14.5L20 6Z" stroke="#4fc3f7" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M16 20L19 23L25 17" stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <h3 class="font-display font-bold text-lg mt-6">Verified Reviews</h3>
-        <p class="text-[#666] text-sm mt-3 leading-relaxed">Every review is tied to a completed, verified transaction. No fakes, ever.</p>
+        <p class="text-[#4a5568] text-sm mt-3 leading-relaxed">Every review is tied to a completed, verified transaction. No fakes, ever.</p>
       </div>
 
       <!-- Feature 3: In-App Messaging -->
-      <div class="feature-card spotlight-card shimmer-border bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl p-8 md:p-10 relative">
+      <div class="feature-card spotlight-card shimmer-border bg-[#ffffff] border border-[#c8d1dc] rounded-2xl p-8 md:p-10 relative">
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 10H32C33.1 10 34 10.9 34 12V28C34 29.1 33.1 30 32 30H12L6 34V12C6 10.9 6.9 10 8 10Z" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="14" y1="18" x2="26" y2="18" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="14" y1="23" x2="22" y2="23" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M8 10H32C33.1 10 34 10.9 34 12V28C34 29.1 33.1 30 32 30H12L6 34V12C6 10.9 6.9 10 8 10Z" stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="14" y1="18" x2="26" y2="18" stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="14" y1="23" x2="22" y2="23" stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
         <h3 class="font-display font-bold text-lg mt-6">In-App Messaging</h3>
-        <p class="text-[#666] text-sm mt-3 leading-relaxed">Communicate directly with tradespeople. Share photos, discuss details, agree scope.</p>
+        <p class="text-[#4a5568] text-sm mt-3 leading-relaxed">Communicate directly with tradespeople. Share photos, discuss details, agree scope.</p>
       </div>
 
       <!-- Feature 4: Quote Builder -->
-      <div class="feature-card spotlight-card shimmer-border bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl p-8 md:p-10 relative">
+      <div class="feature-card spotlight-card shimmer-border bg-[#ffffff] border border-[#c8d1dc] rounded-2xl p-8 md:p-10 relative">
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="10" y="6" width="20" height="28" rx="2" stroke="#10B981" stroke-width="1.5"/>
-          <line x1="15" y1="14" x2="25" y2="14" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="15" y1="19" x2="25" y2="19" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="15" y1="24" x2="21" y2="24" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
+          <rect x="10" y="6" width="20" height="28" rx="2" stroke="#4fc3f7" stroke-width="1.5"/>
+          <line x1="15" y1="14" x2="25" y2="14" stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="15" y1="19" x2="25" y2="19" stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="15" y1="24" x2="21" y2="24" stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
         <h3 class="font-display font-bold text-lg mt-6">Quote Builder</h3>
-        <p class="text-[#666] text-sm mt-3 leading-relaxed">Receive itemised, transparent quotes. Compare pricing with confidence.</p>
+        <p class="text-[#4a5568] text-sm mt-3 leading-relaxed">Receive itemised, transparent quotes. Compare pricing with confidence.</p>
       </div>
 
       <!-- Feature 5: Escrow Payments -->
-      <div class="feature-card spotlight-card shimmer-border bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl p-8 md:p-10 relative">
+      <div class="feature-card spotlight-card shimmer-border bg-[#ffffff] border border-[#c8d1dc] rounded-2xl p-8 md:p-10 relative">
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 6L32 12V20C32 27.2 26.8 33.6 20 35C13.2 33.6 8 27.2 8 20V12L20 6Z" stroke="#10B981" stroke-width="1.5" stroke-linejoin="round"/>
-          <rect x="16" y="17" width="8" height="7" rx="1" stroke="#10B981" stroke-width="1.5"/>
-          <path d="M18 17V14C18 12.9 18.9 12 20 12C21.1 12 22 12.9 22 14V17" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M20 6L32 12V20C32 27.2 26.8 33.6 20 35C13.2 33.6 8 27.2 8 20V12L20 6Z" stroke="#4fc3f7" stroke-width="1.5" stroke-linejoin="round"/>
+          <rect x="16" y="17" width="8" height="7" rx="1" stroke="#4fc3f7" stroke-width="1.5"/>
+          <path d="M18 17V14C18 12.9 18.9 12 20 12C21.1 12 22 12.9 22 14V17" stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
         <h3 class="font-display font-bold text-lg mt-6">Escrow Payments</h3>
-        <p class="text-[#666] text-sm mt-3 leading-relaxed">Your money is held securely until you confirm the work is complete.</p>
+        <p class="text-[#4a5568] text-sm mt-3 leading-relaxed">Your money is held securely until you confirm the work is complete.</p>
       </div>
 
       <!-- Feature 6: Real-Time Availability -->
-      <div class="feature-card spotlight-card shimmer-border bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl p-8 md:p-10 relative">
+      <div class="feature-card spotlight-card shimmer-border bg-[#ffffff] border border-[#c8d1dc] rounded-2xl p-8 md:p-10 relative">
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="7" y="10" width="26" height="24" rx="2" stroke="#10B981" stroke-width="1.5"/>
-          <line x1="7" y1="17" x2="33" y2="17" stroke="#10B981" stroke-width="1.5"/>
-          <line x1="14" y1="6" x2="14" y2="13" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="26" y1="6" x2="26" y2="13" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
-          <circle cx="20" cy="25" r="4" stroke="#10B981" stroke-width="1.5"/>
-          <line x1="20" y1="23" x2="20" y2="25" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="20" y1="25" x2="22" y2="26" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
+          <rect x="7" y="10" width="26" height="24" rx="2" stroke="#4fc3f7" stroke-width="1.5"/>
+          <line x1="7" y1="17" x2="33" y2="17" stroke="#4fc3f7" stroke-width="1.5"/>
+          <line x1="14" y1="6" x2="14" y2="13" stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="26" y1="6" x2="26" y2="13" stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="20" cy="25" r="4" stroke="#4fc3f7" stroke-width="1.5"/>
+          <line x1="20" y1="23" x2="20" y2="25" stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="20" y1="25" x2="22" y2="26" stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
         <h3 class="font-display font-bold text-lg mt-6">Real-Time Availability</h3>
-        <p class="text-[#666] text-sm mt-3 leading-relaxed">See live availability and book slots that work for your schedule.</p>
+        <p class="text-[#4a5568] text-sm mt-3 leading-relaxed">See live availability and book slots that work for your schedule.</p>
       </div>
 
     </div>
@@ -314,7 +314,7 @@
 </section><section id="vetting" class="py-24 md:py-32 px-6">
   <div class="max-w-6xl mx-auto">
     <div class="text-center mb-16">
-      <span class="text-xs uppercase tracking-[0.3em] text-[#10B981] font-semibold">Our Process</span>
+      <span class="text-xs uppercase tracking-[0.3em] text-[#4fc3f7] font-semibold">Our Process</span>
       <h2 class="font-display font-bold text-3xl md:text-5xl mt-4 tracking-tight">The 12-step standard</h2>
     </div>
 
@@ -322,116 +322,116 @@
       <!-- Left: Timeline -->
       <div class="relative">
         <!-- Progress line background -->
-        <div class="absolute left-[15px] top-0 bottom-0 w-[2px] bg-[#1A1A1A]"></div>
+        <div class="absolute left-[15px] top-0 bottom-0 w-[2px] bg-[#e8edf2]"></div>
         <!-- Animated progress line -->
-        <div id="vettingProgress" class="absolute left-[15px] top-0 w-[2px] bg-[#10B981]" style="height:0%"></div>
+        <div id="vettingProgress" class="absolute left-[15px] top-0 w-[2px] bg-[#4fc3f7]" style="height:0%"></div>
 
         <div class="space-y-6">
           <div class="vetting-step flex items-start gap-5 relative" data-step="1">
-            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#333] flex items-center justify-center transition-colors duration-500 z-10 bg-[#050505]">
-              <svg class="w-4 h-4 text-[#333] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#b0bec5] flex items-center justify-center transition-colors duration-500 z-10 bg-[#dde3ea]">
+              <svg class="w-4 h-4 text-[#b0bec5] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
             </div>
             <div>
-              <h4 class="font-display font-bold text-sm text-[#333] transition-colors duration-500 step-title">Identity Verification</h4>
+              <h4 class="font-display font-bold text-sm text-[#b0bec5] transition-colors duration-500 step-title">Identity Verification</h4>
             </div>
           </div>
 
           <div class="vetting-step flex items-start gap-5 relative" data-step="2">
-            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#333] flex items-center justify-center transition-colors duration-500 z-10 bg-[#050505]">
-              <svg class="w-4 h-4 text-[#333] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#b0bec5] flex items-center justify-center transition-colors duration-500 z-10 bg-[#dde3ea]">
+              <svg class="w-4 h-4 text-[#b0bec5] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
             </div>
             <div>
-              <h4 class="font-display font-bold text-sm text-[#333] transition-colors duration-500 step-title">Trading Standards Check</h4>
+              <h4 class="font-display font-bold text-sm text-[#b0bec5] transition-colors duration-500 step-title">Trading Standards Check</h4>
             </div>
           </div>
 
           <div class="vetting-step flex items-start gap-5 relative" data-step="3">
-            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#333] flex items-center justify-center transition-colors duration-500 z-10 bg-[#050505]">
-              <svg class="w-4 h-4 text-[#333] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#b0bec5] flex items-center justify-center transition-colors duration-500 z-10 bg-[#dde3ea]">
+              <svg class="w-4 h-4 text-[#b0bec5] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
             </div>
             <div>
-              <h4 class="font-display font-bold text-sm text-[#333] transition-colors duration-500 step-title">Insurance Validation</h4>
+              <h4 class="font-display font-bold text-sm text-[#b0bec5] transition-colors duration-500 step-title">Insurance Validation</h4>
             </div>
           </div>
 
           <div class="vetting-step flex items-start gap-5 relative" data-step="4">
-            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#333] flex items-center justify-center transition-colors duration-500 z-10 bg-[#050505]">
-              <svg class="w-4 h-4 text-[#333] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#b0bec5] flex items-center justify-center transition-colors duration-500 z-10 bg-[#dde3ea]">
+              <svg class="w-4 h-4 text-[#b0bec5] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
             </div>
             <div>
-              <h4 class="font-display font-bold text-sm text-[#333] transition-colors duration-500 step-title">Qualification Review</h4>
+              <h4 class="font-display font-bold text-sm text-[#b0bec5] transition-colors duration-500 step-title">Qualification Review</h4>
             </div>
           </div>
 
           <div class="vetting-step flex items-start gap-5 relative" data-step="5">
-            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#333] flex items-center justify-center transition-colors duration-500 z-10 bg-[#050505]">
-              <svg class="w-4 h-4 text-[#333] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#b0bec5] flex items-center justify-center transition-colors duration-500 z-10 bg-[#dde3ea]">
+              <svg class="w-4 h-4 text-[#b0bec5] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
             </div>
             <div>
-              <h4 class="font-display font-bold text-sm text-[#333] transition-colors duration-500 step-title">Reference Checks</h4>
+              <h4 class="font-display font-bold text-sm text-[#b0bec5] transition-colors duration-500 step-title">Reference Checks</h4>
             </div>
           </div>
 
           <div class="vetting-step flex items-start gap-5 relative" data-step="6">
-            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#333] flex items-center justify-center transition-colors duration-500 z-10 bg-[#050505]">
-              <svg class="w-4 h-4 text-[#333] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#b0bec5] flex items-center justify-center transition-colors duration-500 z-10 bg-[#dde3ea]">
+              <svg class="w-4 h-4 text-[#b0bec5] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
             </div>
             <div>
-              <h4 class="font-display font-bold text-sm text-[#333] transition-colors duration-500 step-title">DBS / Criminal Record Check</h4>
+              <h4 class="font-display font-bold text-sm text-[#b0bec5] transition-colors duration-500 step-title">DBS / Criminal Record Check</h4>
             </div>
           </div>
 
           <div class="vetting-step flex items-start gap-5 relative" data-step="7">
-            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#333] flex items-center justify-center transition-colors duration-500 z-10 bg-[#050505]">
-              <svg class="w-4 h-4 text-[#333] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#b0bec5] flex items-center justify-center transition-colors duration-500 z-10 bg-[#dde3ea]">
+              <svg class="w-4 h-4 text-[#b0bec5] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
             </div>
             <div>
-              <h4 class="font-display font-bold text-sm text-[#333] transition-colors duration-500 step-title">Financial Health Assessment</h4>
+              <h4 class="font-display font-bold text-sm text-[#b0bec5] transition-colors duration-500 step-title">Financial Health Assessment</h4>
             </div>
           </div>
 
           <div class="vetting-step flex items-start gap-5 relative" data-step="8">
-            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#333] flex items-center justify-center transition-colors duration-500 z-10 bg-[#050505]">
-              <svg class="w-4 h-4 text-[#333] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#b0bec5] flex items-center justify-center transition-colors duration-500 z-10 bg-[#dde3ea]">
+              <svg class="w-4 h-4 text-[#b0bec5] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
             </div>
             <div>
-              <h4 class="font-display font-bold text-sm text-[#333] transition-colors duration-500 step-title">Portfolio & Work Evidence</h4>
+              <h4 class="font-display font-bold text-sm text-[#b0bec5] transition-colors duration-500 step-title">Portfolio & Work Evidence</h4>
             </div>
           </div>
 
           <div class="vetting-step flex items-start gap-5 relative" data-step="9">
-            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#333] flex items-center justify-center transition-colors duration-500 z-10 bg-[#050505]">
-              <svg class="w-4 h-4 text-[#333] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#b0bec5] flex items-center justify-center transition-colors duration-500 z-10 bg-[#dde3ea]">
+              <svg class="w-4 h-4 text-[#b0bec5] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
             </div>
             <div>
-              <h4 class="font-display font-bold text-sm text-[#333] transition-colors duration-500 step-title">Skills Assessment Interview</h4>
+              <h4 class="font-display font-bold text-sm text-[#b0bec5] transition-colors duration-500 step-title">Skills Assessment Interview</h4>
             </div>
           </div>
 
           <div class="vetting-step flex items-start gap-5 relative" data-step="10">
-            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#333] flex items-center justify-center transition-colors duration-500 z-10 bg-[#050505]">
-              <svg class="w-4 h-4 text-[#333] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#b0bec5] flex items-center justify-center transition-colors duration-500 z-10 bg-[#dde3ea]">
+              <svg class="w-4 h-4 text-[#b0bec5] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
             </div>
             <div>
-              <h4 class="font-display font-bold text-sm text-[#333] transition-colors duration-500 step-title">Health & Safety Compliance</h4>
+              <h4 class="font-display font-bold text-sm text-[#b0bec5] transition-colors duration-500 step-title">Health & Safety Compliance</h4>
             </div>
           </div>
 
           <div class="vetting-step flex items-start gap-5 relative" data-step="11">
-            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#333] flex items-center justify-center transition-colors duration-500 z-10 bg-[#050505]">
-              <svg class="w-4 h-4 text-[#333] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#b0bec5] flex items-center justify-center transition-colors duration-500 z-10 bg-[#dde3ea]">
+              <svg class="w-4 h-4 text-[#b0bec5] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
             </div>
             <div>
-              <h4 class="font-display font-bold text-sm text-[#333] transition-colors duration-500 step-title">Customer Service Standards</h4>
+              <h4 class="font-display font-bold text-sm text-[#b0bec5] transition-colors duration-500 step-title">Customer Service Standards</h4>
             </div>
           </div>
 
           <div class="vetting-step flex items-start gap-5 relative" data-step="12">
-            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#333] flex items-center justify-center transition-colors duration-500 z-10 bg-[#050505]">
-              <svg class="w-4 h-4 text-[#333] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#b0bec5] flex items-center justify-center transition-colors duration-500 z-10 bg-[#dde3ea]">
+              <svg class="w-4 h-4 text-[#b0bec5] transition-colors duration-500 step-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
             </div>
             <div>
-              <h4 class="font-display font-bold text-sm text-[#333] transition-colors duration-500 step-title">Annual Re-verification</h4>
+              <h4 class="font-display font-bold text-sm text-[#b0bec5] transition-colors duration-500 step-title">Annual Re-verification</h4>
             </div>
           </div>
         </div>
@@ -439,14 +439,14 @@
 
       <!-- Right: Copy -->
       <div class="flex flex-col justify-center">
-        <h3 class="font-display font-bold text-2xl md:text-4xl leading-tight">Trust isn't claimed.<br><span class="text-[#10B981]">It's earned.</span></h3>
-        <p class="text-[#666] mt-6 leading-relaxed">Every tradesperson on TradeCheck passes our rigorous 12-step vetting process before they can accept a single job. We verify identity, insurance, qualifications, references, criminal records, and more.</p>
-        <p class="text-[#666] mt-4 leading-relaxed">And it doesn't stop there — annual re-verification ensures standards never slip. This is the most thorough vetting process in the UK trades industry.</p>
+        <h3 class="font-display font-bold text-2xl md:text-4xl leading-tight">Trust isn't claimed.<br><span class="text-[#4fc3f7]">It's earned.</span></h3>
+        <p class="text-[#4a5568] mt-6 leading-relaxed">Every tradesperson on TradeCheck passes our rigorous 12-step vetting process before they can accept a single job. We verify identity, insurance, qualifications, references, criminal records, and more.</p>
+        <p class="text-[#4a5568] mt-4 leading-relaxed">And it doesn't stop there — annual re-verification ensures standards never slip. This is the most thorough vetting process in the UK trades industry.</p>
         <div class="mt-8 flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-[#10B981]/10 flex items-center justify-center">
-            <svg class="w-5 h-5 text-[#10B981]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          <div class="w-10 h-10 rounded-full bg-[#4fc3f7]/10 flex items-center justify-center">
+            <svg class="w-5 h-5 text-[#4fc3f7]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
           </div>
-          <span class="text-sm font-semibold text-white">Backed by our £1,000 Homeowner Guarantee</span>
+          <span class="text-sm font-semibold text-[#1a1a2e]">Backed by our £1,000 Homeowner Guarantee</span>
         </div>
       </div>
     </div>
@@ -458,9 +458,9 @@
 <section id="pricing" class="py-24 md:py-32 px-6">
   <div class="max-w-6xl mx-auto">
     <div class="text-center mb-16">
-      <span class="text-xs uppercase tracking-[0.3em] text-[#10B981] font-semibold">Pricing</span>
+      <span class="text-xs uppercase tracking-[0.3em] text-[#4fc3f7] font-semibold">Pricing</span>
       <h2 class="font-display font-bold text-3xl md:text-5xl mt-4 tracking-tight">Simple, transparent pricing</h2>
-      <p class="text-[#666] mt-4 text-sm max-w-md mx-auto">For tradespeople ready to grow their business with verified trust.</p>
+      <p class="text-[#4a5568] mt-4 text-sm max-w-md mx-auto">For tradespeople ready to grow their business with verified trust.</p>
     </div>
 
     <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -469,33 +469,33 @@
         <h3 class="font-display font-bold text-lg">Standard</h3>
         <div class="mt-4 flex items-baseline gap-1">
           <span class="font-display font-bold text-4xl">£49</span>
-          <span class="text-[#666] text-sm">/mo</span>
+          <span class="text-[#4a5568] text-sm">/mo</span>
         </div>
-        <ul class="mt-8 space-y-4 text-sm text-[#CCC]">
-          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#10B981] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>20 leads per month</li>
-          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#10B981] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>10 mile radius</li>
-          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#10B981] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Verified Badge</li>
-          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#10B981] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Basic profile</li>
+        <ul class="mt-8 space-y-4 text-sm text-[#718096]">
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#4fc3f7] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>20 leads per month</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#4fc3f7] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>10 mile radius</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#4fc3f7] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Verified Badge</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#4fc3f7] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Basic profile</li>
         </ul>
-        <a href="#cta" class="mt-8 block text-center border border-[#333] text-white font-medium py-3 rounded-full text-sm hover:border-[#666] transition-colors">Get Started</a>
+        <a href="#cta" class="mt-8 block text-center border border-[#b0bec5] text-[#1a1a2e] font-medium py-3 rounded-full text-sm hover:border-[#4a5568] transition-colors">Get Started</a>
       </div>
 
       <!-- Premium (featured) -->
       <div class="pricing-card glass rounded-2xl p-8 md:p-10 relative rotating-border md:scale-105 md:-my-4">
-        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#10B981] text-black text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider">Most Popular</div>
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#4fc3f7] text-[#1a1a2e] text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider">Most Popular</div>
         <h3 class="font-display font-bold text-lg">Premium</h3>
         <div class="mt-4 flex items-baseline gap-1">
           <span class="font-display font-bold text-4xl">£99</span>
-          <span class="text-[#666] text-sm">/mo</span>
+          <span class="text-[#4a5568] text-sm">/mo</span>
         </div>
-        <ul class="mt-8 space-y-4 text-sm text-[#CCC]">
-          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#10B981] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>50 leads per month</li>
-          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#10B981] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>25 mile radius</li>
-          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#10B981] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Premium Verified Badge</li>
-          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#10B981] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Priority in search results</li>
-          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#10B981] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Portfolio showcase</li>
+        <ul class="mt-8 space-y-4 text-sm text-[#718096]">
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#4fc3f7] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>50 leads per month</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#4fc3f7] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>25 mile radius</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#4fc3f7] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Premium Verified Badge</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#4fc3f7] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Priority in search results</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#4fc3f7] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Portfolio showcase</li>
         </ul>
-        <a href="#cta" class="mt-8 block text-center bg-[#10B981] text-black font-semibold py-3 rounded-full text-sm hover:bg-[#34D399] transition-colors">Go Premium</a>
+        <a href="#cta" class="mt-8 block text-center bg-[#4fc3f7] text-[#1a1a2e] font-semibold py-3 rounded-full text-sm hover:bg-[#81d4fa] transition-colors">Go Premium</a>
       </div>
 
       <!-- Business -->
@@ -503,16 +503,16 @@
         <h3 class="font-display font-bold text-lg">Business</h3>
         <div class="mt-4 flex items-baseline gap-1">
           <span class="font-display font-bold text-4xl">£249</span>
-          <span class="text-[#666] text-sm">/mo</span>
+          <span class="text-[#4a5568] text-sm">/mo</span>
         </div>
-        <ul class="mt-8 space-y-4 text-sm text-[#CCC]">
-          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#10B981] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Unlimited leads</li>
-          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#10B981] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Unlimited radius</li>
-          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#10B981] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Business Partner Badge</li>
-          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#10B981] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Team management</li>
-          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#10B981] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Dedicated account manager</li>
+        <ul class="mt-8 space-y-4 text-sm text-[#718096]">
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#4fc3f7] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Unlimited leads</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#4fc3f7] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Unlimited radius</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#4fc3f7] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Business Partner Badge</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#4fc3f7] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Team management</li>
+          <li class="flex items-center gap-3"><svg class="w-4 h-4 text-[#4fc3f7] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Dedicated account manager</li>
         </ul>
-        <a href="#cta" class="mt-8 block text-center border border-[#333] text-white font-medium py-3 rounded-full text-sm hover:border-[#666] transition-colors">Contact Sales</a>
+        <a href="#cta" class="mt-8 block text-center border border-[#b0bec5] text-[#1a1a2e] font-medium py-3 rounded-full text-sm hover:border-[#4a5568] transition-colors">Contact Sales</a>
       </div>
     </div>
   </div>
@@ -521,43 +521,43 @@
 <div class="section-divider" aria-hidden="true"></div><section id="testimonials" class="py-24 md:py-32 px-6">
   <div class="max-w-6xl mx-auto">
     <div class="text-center mb-16">
-      <span class="text-xs uppercase tracking-[0.3em] text-[#10B981] font-semibold">Testimonials</span>
+      <span class="text-xs uppercase tracking-[0.3em] text-[#4fc3f7] font-semibold">Testimonials</span>
       <h2 class="font-display font-bold text-3xl md:text-5xl mt-4 tracking-tight">Trusted by thousands</h2>
     </div>
 
     <div class="grid md:grid-cols-3 gap-6">
-      <div class="testimonial-card bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl p-8 md:p-10 relative">
-        <div class="text-[#10B981] font-display text-6xl leading-none mb-4 opacity-20">"</div>
-        <p class="text-[#CCC] text-sm leading-relaxed">TradeCheck completely changed how I find tradespeople. The vetting process gives me genuine peace of mind — I know whoever turns up is qualified and insured.</p>
+      <div class="testimonial-card bg-[#ffffff] border border-[#c8d1dc] rounded-2xl p-8 md:p-10 relative">
+        <div class="text-[#4fc3f7] font-display text-6xl leading-none mb-4 opacity-20">"</div>
+        <p class="text-[#718096] text-sm leading-relaxed">TradeCheck completely changed how I find tradespeople. The vetting process gives me genuine peace of mind — I know whoever turns up is qualified and insured.</p>
         <div class="mt-6 flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-[#1A1A1A] flex items-center justify-center font-display font-bold text-sm text-[#10B981]">ST</div>
+          <div class="w-10 h-10 rounded-full bg-[#e8edf2] flex items-center justify-center font-display font-bold text-sm text-[#4fc3f7]">ST</div>
           <div>
             <div class="font-semibold text-sm">Sarah T.</div>
-            <div class="text-xs text-[#666]">Homeowner, Bristol</div>
+            <div class="text-xs text-[#4a5568]">Homeowner, Bristol</div>
           </div>
         </div>
       </div>
 
-      <div class="testimonial-card bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl p-8 md:p-10 relative">
-        <div class="text-[#10B981] font-display text-6xl leading-none mb-4 opacity-20">"</div>
-        <p class="text-[#CCC] text-sm leading-relaxed">Since joining TradeCheck, my leads have tripled. Customers already trust me before I walk through the door because they've seen my verified profile and reviews.</p>
+      <div class="testimonial-card bg-[#ffffff] border border-[#c8d1dc] rounded-2xl p-8 md:p-10 relative">
+        <div class="text-[#4fc3f7] font-display text-6xl leading-none mb-4 opacity-20">"</div>
+        <p class="text-[#718096] text-sm leading-relaxed">Since joining TradeCheck, my leads have tripled. Customers already trust me before I walk through the door because they've seen my verified profile and reviews.</p>
         <div class="mt-6 flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-[#1A1A1A] flex items-center justify-center font-display font-bold text-sm text-[#10B981]">MJ</div>
+          <div class="w-10 h-10 rounded-full bg-[#e8edf2] flex items-center justify-center font-display font-bold text-sm text-[#4fc3f7]">MJ</div>
           <div>
             <div class="font-semibold text-sm">Marcus J.</div>
-            <div class="text-xs text-[#666]">Electrician, London</div>
+            <div class="text-xs text-[#4a5568]">Electrician, London</div>
           </div>
         </div>
       </div>
 
-      <div class="testimonial-card bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl p-8 md:p-10 relative">
-        <div class="text-[#10B981] font-display text-6xl leading-none mb-4 opacity-20">"</div>
-        <p class="text-[#CCC] text-sm leading-relaxed">We manage 40+ tradespeople through the Business plan. The team management tools and dedicated support have been a game-changer for scaling our operations.</p>
+      <div class="testimonial-card bg-[#ffffff] border border-[#c8d1dc] rounded-2xl p-8 md:p-10 relative">
+        <div class="text-[#4fc3f7] font-display text-6xl leading-none mb-4 opacity-20">"</div>
+        <p class="text-[#718096] text-sm leading-relaxed">We manage 40+ tradespeople through the Business plan. The team management tools and dedicated support have been a game-changer for scaling our operations.</p>
         <div class="mt-6 flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-[#1A1A1A] flex items-center justify-center font-display font-bold text-sm text-[#10B981]">BR</div>
+          <div class="w-10 h-10 rounded-full bg-[#e8edf2] flex items-center justify-center font-display font-bold text-sm text-[#4fc3f7]">BR</div>
           <div>
             <div class="font-semibold text-sm">BuildRight Ltd</div>
-            <div class="text-xs text-[#666]">Construction, Manchester</div>
+            <div class="text-xs text-[#4a5568]">Construction, Manchester</div>
           </div>
         </div>
       </div>
@@ -571,24 +571,24 @@
   <div class="pulse-bg" aria-hidden="true"></div>
   <div class="relative z-10 text-center max-w-2xl mx-auto">
     <h2 id="ctaTitle" class="font-display font-bold tracking-[-0.04em] leading-[0.9]" style="font-size:clamp(3rem,10vw,8rem);clip-path:inset(100% 0 0 0)">JOIN.</h2>
-    <p class="mt-6 text-[#999] text-lg md:text-xl opacity-0 cta-subtitle">Be the first to experience TradeCheck</p>
+    <p class="mt-6 text-[#4a5568] text-lg md:text-xl opacity-0 cta-subtitle">Be the first to experience TradeCheck</p>
     <form id="waitlistForm" class="mt-10 flex flex-col sm:flex-row gap-3 max-w-md mx-auto opacity-0 cta-form" onsubmit="return false">
-      <input type="email" placeholder="Enter your email" class="flex-1 bg-[#111] border border-[#333] rounded-full px-6 py-4 text-sm text-white placeholder-[#666] focus:outline-none focus:border-[#10B981] transition-colors" required>
-      <button type="submit" class="bg-[#10B981] text-black font-bold px-8 py-4 rounded-full text-sm hover:bg-[#34D399] transition-colors whitespace-nowrap">Join Waitlist</button>
+      <input type="email" placeholder="Enter your email" class="flex-1 bg-[#f0f4f8] border border-[#b0bec5] rounded-full px-6 py-4 text-sm text-[#1a1a2e] placeholder-[#4a5568] focus:outline-none focus:border-[#4fc3f7] transition-colors" required>
+      <button type="submit" class="bg-[#4fc3f7] text-[#1a1a2e] font-bold px-8 py-4 rounded-full text-sm hover:bg-[#81d4fa] transition-colors whitespace-nowrap">Join Waitlist</button>
     </form>
-    <p id="formSuccess" class="mt-4 text-[#10B981] text-sm hidden">Thank you! You're on the list.</p>
+    <p id="formSuccess" class="mt-4 text-[#4fc3f7] text-sm hidden">Thank you! You're on the list.</p>
   </div>
 </section>
 
   </main><!-- close main -->
 
-  <footer class="py-8 px-6 border-t border-[#111]">
+  <footer class="py-8 px-6 border-t border-[#c8d1dc]">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-      <a href="#" class="font-display font-bold text-sm tracking-tight">Trade<span class="text-[#10B981]">Check</span></a>
-      <div class="flex items-center gap-6 text-xs text-[#666]">
-        <a href="#" class="hover:text-white transition-colors">Privacy</a>
-        <a href="#" class="hover:text-white transition-colors">Terms</a>
-        <a href="#" class="hover:text-white transition-colors">Contact</a>
+      <a href="#" class="font-display font-bold text-sm tracking-tight">Trade<span class="text-[#4fc3f7]">Check</span></a>
+      <div class="flex items-center gap-6 text-xs text-[#4a5568]">
+        <a href="#" class="hover:text-[#1a1a2e] transition-colors">Privacy</a>
+        <a href="#" class="hover:text-[#1a1a2e] transition-colors">Terms</a>
+        <a href="#" class="hover:text-[#1a1a2e] transition-colors">Contact</a>
         <span>Coming 2026</span>
       </div>
     </div>
@@ -632,7 +632,6 @@ if (prefersReducedMotion) {
     smoothWheel: true,
     syncTouch: false
   });
-  lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => { lenis.raf(time * 1000); });
   gsap.ticker.lagSmoothing(0);
 
@@ -646,20 +645,21 @@ if (prefersReducedMotion) {
     .to('.loader', { yPercent: -100, duration: 0.8, ease: 'power3.inOut' }, 1.4)
     .set('#loader', { display: 'none' })
     .set('#mainContent', { opacity: 1 })
-    .call(() => { lenis.start(); initAnimations(); });
-
-  function initAnimations() {
-    // a) Scroll progress bar (via Lenis for smooth tracking)
-    lenis.on('scroll', ({ scroll, limit }) => {
-      const progress = (scroll / limit) * 100;
-      document.getElementById('scrollProgress').style.width = progress + '%';
+    .call(() => {
+      lenis.start();
+      initAnimations();
+      requestAnimationFrame(() => ScrollTrigger.refresh());
     });
 
-    // b) Nav background on scroll
+  function initAnimations() {
+    // Single consolidated Lenis scroll listener (progress bar + nav + ScrollTrigger)
     const nav = document.getElementById('navbar');
-    lenis.on('scroll', ({ scroll }) => {
+    const progressBar = document.getElementById('scrollProgress');
+    lenis.on('scroll', ({ scroll, limit }) => {
+      ScrollTrigger.update();
+      progressBar.style.width = ((scroll / limit) * 100) + '%';
       if (scroll > 100) {
-        nav.style.background = 'rgba(5,5,5,0.8)';
+        nav.style.background = 'rgba(221,227,234,0.85)';
         nav.style.backdropFilter = 'blur(20px)';
         nav.style.webkitBackdropFilter = 'blur(20px)';
       } else {
@@ -667,6 +667,17 @@ if (prefersReducedMotion) {
         nav.style.backdropFilter = 'none';
         nav.style.webkitBackdropFilter = 'none';
       }
+    });
+
+    // Anchor links → Lenis smooth scroll (prevent native jump)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const target = anchor.getAttribute('href');
+        if (target && target !== '#') {
+          e.preventDefault();
+          lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+        }
+      });
     });
 
     // c) Hero character split animation
@@ -789,13 +800,13 @@ if (prefersReducedMotion) {
             const check = step.querySelector('.step-check');
             const title = step.querySelector('.step-title');
             if (i <= activeIndex) {
-              circle.style.borderColor = '#10B981';
-              check.style.color = '#10B981';
-              if (title) title.style.color = '#FAFAFA';
+              circle.style.borderColor = '#4fc3f7';
+              check.style.color = '#4fc3f7';
+              if (title) title.style.color = '#1a1a2e';
             } else {
-              circle.style.borderColor = '#333';
-              check.style.color = '#333';
-              if (title) title.style.color = '#333';
+              circle.style.borderColor = '#b0bec5';
+              check.style.color = '#b0bec5';
+              if (title) title.style.color = '#b0bec5';
             }
           });
         }
