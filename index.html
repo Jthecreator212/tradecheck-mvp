@@ -620,10 +620,20 @@ if (prefersReducedMotion) {
   });
 } else {
   // Lenis smooth scroll
-  const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    wrapper: window,
+    content: document.documentElement,
+    smoothWheel: true,
+    syncTouch: false
+  });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => { lenis.raf(time * 1000); });
   gsap.ticker.lagSmoothing(0);
+
+  // Stop Lenis during loader, resume after
+  lenis.stop();
 
   // Loader animation
   const loaderTl = gsap.timeline();
@@ -632,32 +642,26 @@ if (prefersReducedMotion) {
     .to('.loader', { yPercent: -100, duration: 0.8, ease: 'power3.inOut' }, 1.4)
     .set('#loader', { display: 'none' })
     .set('#mainContent', { opacity: 1 })
-    .call(initAnimations);
+    .call(() => { lenis.start(); initAnimations(); });
 
   function initAnimations() {
-    // a) Scroll progress bar
-    window.addEventListener('scroll', () => {
-      const scrollTop = document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrollTop / scrollHeight) * 100;
+    // a) Scroll progress bar (via Lenis for smooth tracking)
+    lenis.on('scroll', ({ scroll, limit }) => {
+      const progress = (scroll / limit) * 100;
       document.getElementById('scrollProgress').style.width = progress + '%';
     });
 
     // b) Nav background on scroll
-    ScrollTrigger.create({
-      start: 'top -100',
-      onUpdate: (self) => {
-        const nav = document.getElementById('navbar');
-        if (self.direction === 1 && window.scrollY > 100) {
-          nav.style.background = 'rgba(5,5,5,0.8)';
-          nav.style.backdropFilter = 'blur(20px)';
-          nav.style.webkitBackdropFilter = 'blur(20px)';
-        }
-        if (window.scrollY <= 100) {
-          nav.style.background = 'transparent';
-          nav.style.backdropFilter = 'none';
-          nav.style.webkitBackdropFilter = 'none';
-        }
+    const nav = document.getElementById('navbar');
+    lenis.on('scroll', ({ scroll }) => {
+      if (scroll > 100) {
+        nav.style.background = 'rgba(5,5,5,0.8)';
+        nav.style.backdropFilter = 'blur(20px)';
+        nav.style.webkitBackdropFilter = 'blur(20px)';
+      } else {
+        nav.style.background = 'transparent';
+        nav.style.backdropFilter = 'none';
+        nav.style.webkitBackdropFilter = 'none';
       }
     });
 
